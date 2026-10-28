@@ -191,6 +191,63 @@ label { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); display:
 .project-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
 .empty { padding: 40px 20px; text-align: center; color: var(--text-muted); border: 1px dashed var(--border); border-radius: var(--radius); }
 
+/* ---------- Übersichtsseite eines Projekts ---------- */
+.detail-top { margin-bottom: 12px; }
+.detail-aktionen { display: flex; gap: 8px; flex-wrap: wrap; }
+.detail-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+.archiv-tag {
+  padding: 2px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 600;
+  color: var(--text-muted); background: var(--surface-2); border: 1px solid var(--border);
+}
+.detail-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; align-items: start; margin-top: 14px; }
+
+/* Kennzahlen */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.kpi {
+  display: flex; flex-direction: column; gap: 3px;
+  background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent);
+  border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow);
+}
+.kpi-label { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); }
+.kpi-wert { font-size: 1.25rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.kpi-zusatz { font-size: 0.8rem; color: var(--text-muted); }
+.kpi-warn { border-left-color: var(--danger); }
+.kpi-warn .kpi-zusatz { color: var(--warn); }
+
+/* Fortschritt */
+.fortschritt-box { margin-bottom: 14px; }
+.fortschritt-kopf { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 9px; }
+.fortschritt-kopf h2 { margin: 0; }
+.balken { height: 9px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.balken-fuell { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+
+/* Ablaufstrahl */
+.ablauf { display: flex; flex-direction: column; gap: 7px; }
+.ablauf-row {
+  display: grid; grid-template-columns: 120px minmax(80px, 1fr) 150px 95px;
+  gap: 12px; align-items: center; font-size: 0.86rem;
+}
+.ablauf-name { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ablauf-track { position: relative; height: 16px; border-radius: 4px; background: var(--surface-2); }
+.ablauf-bar { position: absolute; top: 0; bottom: 0; border-radius: 4px; background: var(--c, var(--accent)); }
+.ablauf-bar.st-planung { --c: var(--st-planung); }
+.ablauf-bar.st-bearbeitung { --c: var(--st-bearbeitung); }
+.ablauf-bar.st-abgeschlossen { --c: var(--st-abgeschlossen); }
+.ablauf-zeit { color: var(--text-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ablauf-tage { color: var(--text-muted); text-align: right; white-space: nowrap; }
+.notiz-text { font-size: 0.92rem; line-height: 1.65; }
+.detail-cols .panel h2, .detail-notiz h2 { margin-bottom: 10px; }
+.dl-row {
+  display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 10px;
+  padding: 7px 0; border-top: 1px solid var(--border); font-size: 0.9rem;
+}
+.dl-row:first-of-type { border-top: 0; padding-top: 0; }
+.dl-label { color: var(--text-muted); }
+.dl-wert { color: var(--text); }
+.detail-notiz { margin-top: 14px; }
+.detail-notiz p { font-size: 0.92rem; line-height: 1.65; }
+.detail-fuss { margin-top: 16px; }
+
 /* ---------- Kanban ---------- */
 .kanban { display: grid; grid-template-columns: repeat(3, minmax(240px, 1fr)); gap: 16px; align-items: start; }
 .column { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; min-height: 240px; }
@@ -212,16 +269,35 @@ label { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); display:
 .kcard.st-abgeschlossen { --c: var(--st-abgeschlossen); color: var(--text); }
 
 /* ---------- Kalender ---------- */
-.cal-layout { display: grid; grid-template-columns: 1fr 230px; gap: 16px; align-items: start; }
-.cal-nav { display: flex; align-items: center; gap: 8px; }
+.cal-layout { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 16px; align-items: start; }
+.cal-nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.we-toggle {
+  display: inline-flex; align-items: center; gap: 6px; margin: 0;
+  font-size: 0.85rem; font-weight: 500; color: var(--text-muted); cursor: pointer; white-space: nowrap;
+}
+.we-toggle:hover { color: var(--text); }
+.we-toggle input { width: auto; margin: 0; }
+.we-sel { width: auto; padding: 4px 8px; font-size: 0.85rem; }
 .cal-nav h2 { min-width: 160px; text-align: center; font-size: 1.15rem; }
 .cal {
-  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr));
+  display: grid; grid-template-columns: 38px repeat(7, minmax(0, 1fr));
   border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface);
 }
+.cal-kw-head, .cal-kw {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; font-variant-numeric: tabular-nums;
+  color: var(--text-muted); background: var(--surface-2);
+  border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.cal-kw-head { font-weight: 600; padding: 8px 0; }
 .cal-dow { padding: 8px; text-align: center; font-size: 0.78rem; font-weight: 600; color: var(--text-muted); background: var(--surface-2); border-bottom: 1px solid var(--border); }
 .cal-day { min-height: 104px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 4px 0 4px; display: flex; flex-direction: column; gap: 3px; }
-.cal-day:nth-child(7n) { border-right: 0; }
+/* Je nach Einstellung fünf bis sieben Tagesspalten, dazu die KW-Spalte */
+.cal.sp5 { grid-template-columns: 38px repeat(5, minmax(0, 1fr)); }
+.cal.sp6 { grid-template-columns: 38px repeat(6, minmax(0, 1fr)); }
+.cal.sp5 .cal-day:nth-child(6n) { border-right: 0; }
+.cal.sp6 .cal-day:nth-child(7n) { border-right: 0; }
+.cal.sp7 .cal-day:nth-child(8n) { border-right: 0; }
 .cal-day.other { background: var(--surface-2); }
 .cal-day.other .cal-num { opacity: 0.5; }
 .cal-day.weekend { background: var(--surface-2); }
@@ -244,9 +320,16 @@ label { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); display:
 .chip-spacer { min-height: 22px; }
 .chip.warn::after { content: " ⚠"; }
 
-.unscheduled { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; }
-.unscheduled h2 { margin-bottom: 4px; }
-.unscheduled .kcard { margin-top: 8px; }
+.cal-side { min-width: 0; }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; }
+.panel + .panel { margin-top: 12px; }
+.panel h2 { margin-bottom: 4px; font-size: 1rem; }
+.panel .kcard { margin-top: 8px; }
+.side-list { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; }
+.side-list li { color: var(--text-muted); }
+.side-list li.hint-warn { color: var(--warn); }
+.link { background: none; border: 0; padding: 0; width: auto; font: inherit; color: inherit; text-align: left; cursor: pointer; text-decoration: underline; text-decoration-color: var(--border); }
+.link:hover { text-decoration-color: var(--accent); }
 
 /* ---------- Dialog ---------- */
 dialog {
@@ -255,18 +338,136 @@ dialog {
 }
 dialog::backdrop { background: rgb(0 0 0 / 0.5); }
 .dlg-head { padding: 18px 22px 0; }
-.dlg-body { padding: 16px 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-height: calc(100vh - 220px); overflow: auto; }
-.dlg-body .full { grid-column: 1 / -1; }
+.dlg-body { padding: 4px 22px 16px; max-height: calc(100vh - 220px); overflow: auto; }
+.dlg-sec { padding: 14px 0; border-top: 1px solid var(--border); }
+.dlg-sec:first-child { border-top: 0; }
+.dlg-sec h3 { font-size: 0.95rem; font-weight: 600; }
+.dlg-sec > h3 + .feld-grid, .dlg-sec > h3 + .seg-grid, .dlg-sec > h3 + textarea { margin-top: 10px; }
+.sec-hint { font-size: 0.82rem; color: var(--text-muted); margin: 3px 0 10px; }
+.feld-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.feld-grid .full { grid-column: 1 / -1; }
 .dlg-foot { padding: 14px 22px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 8px; }
-.teile { display: flex; flex-direction: column; gap: 6px; }
-.teil-row { display: grid; grid-template-columns: 1fr 110px auto; gap: 8px; align-items: center; }
-.teil-row span { font-size: 0.85rem; color: var(--text-muted); }
-.teil-head { display: grid; grid-template-columns: 1fr 110px auto; gap: 8px; font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
-.calc-box { background: var(--accent-soft); border-radius: 8px; padding: 10px 12px; font-size: 0.9rem; display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; }
+.calc-box {
+  background: var(--accent-soft); border-radius: 8px; padding: 11px 13px; margin-top: 12px;
+  font-size: 0.9rem; display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; flex-wrap: wrap;
+}
+.calc-seg { color: var(--text-muted); font-size: 0.85rem; }
+
+/* ---------- Eigenes Datumsfeld mit Arbeitstage-Kalender ---------- */
+.datumsfeld { position: relative; }
+.feld-label { display: block; margin-bottom: 4px; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+.datum-zeile { display: flex; gap: 6px; align-items: stretch; }
+.datum-btn {
+  flex: 1; min-width: 0; text-align: left; font: inherit;
+  padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--surface); color: var(--text); cursor: pointer;
+}
+.datum-btn:hover { border-color: var(--accent); }
+.datum-x { flex: none; }
+
+.datum-pop {
+  position: absolute; z-index: 20; top: calc(100% + 5px); left: 0;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  box-shadow: 0 12px 34px rgb(0 0 0 / 0.35); padding: 10px;
+}
+.pop-kopf { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; font-size: 0.9rem; }
+.pop-grid { display: grid; gap: 2px; }
+.pop-grid.sp5 { grid-template-columns: 24px repeat(5, 32px); }
+.pop-grid.sp6 { grid-template-columns: 24px repeat(6, 32px); }
+.pop-grid.sp7 { grid-template-columns: 24px repeat(7, 32px); }
+.pop-kw-head, .pop-dow {
+  font-size: 0.68rem; font-weight: 600; color: var(--text-muted); text-align: center; padding-bottom: 3px;
+}
+.pop-kw {
+  font-size: 0.68rem; color: var(--text-muted); font-variant-numeric: tabular-nums;
+  display: flex; align-items: center; justify-content: center;
+  border-right: 1px solid var(--border); margin-right: 2px;
+}
+.pop-tag {
+  font: inherit; font-size: 0.8rem; height: 30px; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 0; border-radius: 6px; background: transparent; color: var(--text);
+  cursor: pointer; font-variant-numeric: tabular-nums;
+}
+.pop-tag:hover { background: var(--surface-2); }
+.pop-tag.fremd { color: var(--text-muted); opacity: 0.55; }
+.pop-tag.heute { box-shadow: inset 0 0 0 1px var(--accent); }
+.pop-tag.gewaehlt { background: var(--accent); color: var(--on-accent); font-weight: 700; }
+.pop-tag.gesperrt { color: var(--text-muted); opacity: 0.3; cursor: default; }
 
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
+/* ---------- Kalender: Umschalter und Liefertermine ---------- */
+.cal-main { min-width: 0; }
+.view-toggle { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.view-toggle .btn { border: 0; border-radius: 0; }
+.view-toggle .btn + .btn { border-left: 1px solid var(--border); }
+.view-toggle .btn.active { background: var(--accent); color: var(--on-accent); font-weight: 600; }
+
+.liefer-chip {
+  font-size: 0.72rem; font-weight: 600; line-height: 1.2; padding: 2px 6px; margin: 2px 4px 0;
+  border: 1px dashed var(--accent); border-radius: 6px; color: var(--accent); background: var(--accent-soft);
+  cursor: grab; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.liefer-chip.warn { border-color: var(--danger); color: var(--danger); background: transparent; }
+.liefer-chip.verschoben { border-style: dotted; }
+.liefer-chip.dragging { opacity: 0.45; }
+
+/* ---------- Jahreskalender: zwölf Monatsraster nebeneinander ---------- */
+/* Im Jahr bekommt das Raster die volle Breite, die Seitenspalte rückt darunter. */
+.cal-layout.jahr { grid-template-columns: minmax(0, 1fr); }
+.cal-layout.jahr .cal-side { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; align-items: start; }
+.cal-layout.jahr .panel + .panel { margin-top: 0; }
+
+.ycal { display: grid; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr)); gap: 18px; align-items: start; }
+.ymon { min-width: 0; }
+.ymon h3 { font-size: 1rem; font-weight: 600; margin-bottom: 7px; }
+/* Etwas flachere Tage als im Monat, sonst wird das Jahr unendlich lang */
+.ycal .cal.sp7 { grid-template-columns: 30px repeat(7, minmax(0, 1fr)); }
+.ycal .cal.sp6 { grid-template-columns: 30px repeat(6, minmax(0, 1fr)); }
+.ycal .cal.sp5 { grid-template-columns: 30px repeat(5, minmax(0, 1fr)); }
+.ycal .cal-day { min-height: 58px; }
+.ycal .cal-day.blank { background: var(--surface-2); opacity: 0.4; }
+.ycal .cal-dow, .ycal .cal-kw-head { font-size: 0.7rem; padding: 5px 0; }
+.ycal .cal-kw { font-size: 0.68rem; }
+.ycal .cal-num { font-size: 0.72rem; height: 18px; padding: 0 5px; }
+.ycal .cal-day.today .cal-num { width: 18px; margin-left: 3px; }
+.ycal .chip { font-size: 0.68rem; min-height: 18px; padding: 2px 5px; }
+.ycal .chip-spacer { min-height: 18px; }
+.ycal .liefer-chip { font-size: 0.66rem; padding: 1px 5px; margin: 2px 3px 0; }
+
+/* ---------- Fertigungsstraßen ---------- */
+.str-list { display: flex; flex-direction: column; gap: 8px; max-width: 780px; }
+.str-row {
+  display: grid; grid-template-columns: 22px minmax(0, 1fr) auto auto auto auto; gap: 8px; align-items: center;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 12px; box-shadow: var(--shadow);
+}
+.str-pos { color: var(--text-muted); font-size: 0.8rem; font-weight: 600; text-align: center; }
+.str-row .hint { white-space: nowrap; }
+.str-note { margin-top: 14px; max-width: 780px; }
+.btn[disabled] { opacity: 0.4; cursor: default; }
+
+/* ---------- Dialog: Dauer je Straße ---------- */
+.seg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; }
+.seg-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) 86px; gap: 8px; align-items: center;
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px;
+}
+.seg-row label { margin: 0; color: var(--text); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.check { display: flex; align-items: flex-start; gap: 8px; margin: 10px 0 0; font-weight: 400; color: var(--text); font-size: 0.88rem; }
+.check input { width: auto; margin-top: 2px; }
+.check-klein { font-size: 0.8rem; margin-top: 6px; color: var(--text-muted); }
+.auto-tag {
+  margin-left: 6px; padding: 1px 6px; border-radius: 999px;
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.03em;
+  color: var(--text-muted); background: var(--surface-2); border: 1px solid var(--border);
+}
+.calc-box div { line-height: 1.65; }
+
 /* ---------- Responsiv ---------- */
+@media (max-width: 1180px) {
+  .cal-layout { grid-template-columns: minmax(0, 1fr) 220px; }
+}
 @media (max-width: 960px) {
   .cal-layout { grid-template-columns: 1fr; }
 }
@@ -280,7 +481,13 @@ dialog::backdrop { background: rgb(0 0 0 / 0.5); }
   .main { padding: 4px 16px 40px; }
   .kanban { grid-template-columns: 1fr; }
   .project-card { grid-template-columns: 1fr; }
+  .dl-row { grid-template-columns: 1fr; gap: 2px; }
+  .ablauf-row { grid-template-columns: 1fr auto; row-gap: 2px; }
+  .ablauf-track { grid-column: 1 / -1; order: 3; }
   .project-actions { justify-content: flex-start; }
-  .dlg-body { grid-template-columns: 1fr; }
+  .feld-grid { grid-template-columns: 1fr; }
   .cal-day { min-height: 72px; }
+  .str-row { grid-template-columns: 22px 1fr; row-gap: 6px; }
+  .str-row .hint, .str-row .btn { grid-column: 2; }
+  .ycal { grid-template-columns: minmax(0, 1fr); }
 }

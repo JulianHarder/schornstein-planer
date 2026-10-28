@@ -419,8 +419,13 @@ dialog::backdrop { background: rgb(0 0 0 / 0.5); }
 .cal-layout.jahr .cal-side { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; align-items: start; }
 .cal-layout.jahr .panel + .panel { margin-top: 0; }
 
-.ycal { display: grid; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr)); gap: 18px; align-items: start; }
-.ymon { min-width: 0; }
+/* grid-auto-rows: 1fr zieht alle Monatskarten auf dieselbe Höhe, sonst stünden
+   Monate mit mehr übereinanderliegenden Balken höher als ihre Nachbarn. Die
+   sechs Wochenzeilen teilen sich die Höhe gleichmäßig, damit die Raster
+   nebeneinander auf einer Linie liegen statt unten leer auszulaufen. */
+.ycal { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 18px; grid-auto-rows: 1fr; }
+.ymon { min-width: 0; display: flex; flex-direction: column; }
+.ymon .cal { flex: 1; grid-template-rows: auto repeat(6, minmax(min-content, 1fr)); }
 .ymon h3 { font-size: 1rem; font-weight: 600; margin-bottom: 7px; }
 /* Etwas flachere Tage als im Monat, sonst wird das Jahr unendlich lang */
 .ycal .cal.sp7 { grid-template-columns: 30px repeat(7, minmax(0, 1fr)); }
